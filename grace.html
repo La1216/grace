@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Self‑Care Restock Service</title>
+
+  <!-- Flutterwave -->
+
+  <script src="https://checkout.flutterwave.com/v3.js"></script>
+
+  <!-- Google Fonts -->
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+/* =====================================================================
+   1. DESIGN SYSTEM
+   ===================================================================== */
+:root {
+  --bg-main: #f9fafb;
+  --bg-soft: #ffffff;
+  --bg-accent: #fff1f6;
+  --primary: #e75480;
+  --primary-dark: #c93a66;
+  --text-main: #1f2937;
+  --text-muted: #6b7280;
+  --border-soft: #e5e7eb;
+  --radius-lg: 22px;
+  --radius-md: 14px;
+  --shadow-soft: 0 10px 30px rgba(0,0,0,0.06);
+  --shadow-strong: 0 20px 50px rgba(0,0,0,0.1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.7;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* =====================================================================
+   2. GLOBAL UTILITIES
+   ===================================================================== */
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 20px;
+}
+
+.section {
+  padding: 90px 0;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.4rem;
+  margin-bottom: 15px;
+}
+
+.section-subtitle {
+  text-align: center;
+  color: var(--text-muted);
+  max-width: 700px;
+  margin: auto;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: #fff;
+  border: none;
+  padding: 16px 28px;
+  border-radius: 40px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  box-shadow: var(--shadow-soft);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-strong);
+}
+
+/* =====================================================================
+   3. HERO SECTION
+   ===================================================================== */
+.hero {
+  background: radial-gradient(circle at top, #ffe4ec, #ffffff);
+  padding: 120px 0 100px;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  max-width: 720px;
+  margin: auto;
+  font-size: 1.15rem;
+  color: var(--text-muted);
+}
+
+.hero-cta {
+  margin-top: 40px;
+}
+
+/* =====================================================================
+   4. SERVICES GRID
+   ===================================================================== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+  margin-top: 60px;
+}
+
+.card {
+  background: var(--bg-soft);
+  border-radius: var(--radius-lg);
+  padding: 35px 25px;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-strong);
+}
+
+.card h3 {
+  margin-bottom: 12px;
+  font-size: 1.25rem;
+}
+
+.card p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+/* =====================================================================
+   5. HOW IT WORKS
+   ===================================================================== */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px;
+  margin-top: 70px;
+}
+
+.step {
+  background: linear-gradient(180deg, #fff, #fff7fa);
+  padding: 40px 30px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+}
+
+.step span {
+  display: inline-block;
+  background: var(--primary);
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  line-height: 40px;
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+/* =====================================================================
+   6. ORDER FORM
+   ===================================================================== */
+.form-wrapper {
+  max-width: 650px;
+  margin: 80px auto 0;
+  background: var(--bg-soft);
+  padding: 45px 40px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-strong);
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  margin-top: 6px;
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-soft);
+  font-size: 0.95rem;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 130px;
+}
+
+.amount-box {
+  background: var(--bg-accent);
+  padding: 15px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+}
+
+/* =====================================================================
+   7. FOOTER
+   ===================================================================== */
+footer {
+  margin-top: 120px;
+  background: #111827;
+  color: #e5e7eb;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+footer a {
+  color: #f9a8d4;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* =====================================================================
+   8. RESPONSIVE
+   ===================================================================== */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 2.3rem; }
+  .section { padding: 70px 0; }
+}
+  </style>
+
+</head>
+<body>
+
+  <!-- HERO -->
+
+  <section class="hero">
+    <div class="container">
+      <h1>Student Self‑Care Restock Service</h1>
+      <p>I help students resume light by shopping for skincare, haircare, and daily essentials — affordable, trusted, stress‑free.</p>
+      <div class="hero-cta">
+        <a href="#order"><button class="btn-primary">Place an Order</button></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">What You Can Order</h2>
+      <p class="section-subtitle">Everything you need to resume school feeling confident and prepared.</p>
+
+```
+  <div class="grid">
+    <div class="card"><h3>Skincare</h3><p>Soaps, creams, oils, face & body products.</p></div>
+    <div class="card"><h3>Hair Care</h3><p>Shampoos, relaxers, conditioners & tools.</p></div>
+    <div class="card"><h3>Oral Care</h3><p>Toothbrushes, toothpaste & mouthwash.</p></div>
+    <div class="card"><h3>Accessories</h3><p>Towels, sponges, combs & essentials.</p></div>
+  </div>
+</div>
+```
+
+  </section>
+
+  <!-- HOW IT WORKS -->
+
+  <section class="section" style="background:#fff;">
+    <div class="container">
+      <h2 class="section-title">How It Works</h2>
+      <div class="steps">
+        <div class="step"><span>1</span><h3>Send Your List</h3><p>Tell me what you want or your budget.</p></div>
+        <div class="step"><span>2</span><h3>Make Payment</h3><p>Secure payment via Flutterwave.</p></div>
+        <div class="step"><span>3</span><h3>I Shop & Deliver</h3><p>You relax — I handle everything.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ORDER FORM -->
+
+  <section class="section" id="order">
+    <div class="container">
+      <h2 class="section-title">Place Your Order</h2>
+
+```
+  <div class="form-wrapper">
+    <form id="orderForm" action="https://formsubmit.co/YOUREMAILHERE" method="POST">
+      <input type="hidden" name="_captcha" value="false">
+
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" name="name" required>
+      </div>
+
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" name="email" required>
+      </div>
+
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" name="phone" required>
+      </div>
+
+      <div class="form-group">
+        <label>Items / Budget</label>
+        <textarea name="order"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Amount (₦)</label>
+        <input type="number" id="amount" required>
+      </div>
+
+      <button type="button" class="btn-primary" onclick="payWithFlutterwave()">Pay & Submit Order</button>
+    </form>
+  </div>
+</div>
+```
+
+  </section>
+
+  <!-- FOOTER -->
+
+  <footer>
+    <p>Helping students resume light & confident 🤍</p>
+    <p>Questions? <a href="https://wa.me/2348144613923">Chat on WhatsApp</a></p>
+  </footer>
+
+  <script>
+  function payWithFlutterwave() {
+    const amount = document.getElementById('amount').value;
+    if (!amount || amount <= 0) return alert('Enter a valid amount');
+
+    FlutterwaveCheckout({
+      public_key:"FLWPUBK_TEST-ff954ffa6d0c6c9ab0a14c3c85601367-X",
+      tx_ref: 'SC-' + Date.now(),
+      amount: amount,
+      currency: 'NGN',
+      payment_options: 'card,banktransfer,ussd',
+      customer: {
+        email: document.querySelector('input[name="email"]').value,
+        phone_number: document.querySelector('input[name="phone"]').value,
+        name: document.querySelector('input[name="name"]').value,
+      },
+      customizations: {
+        title: 'Student Self‑Care Restock',
+        description: 'Payment for restock service',
+      },
+      callback: function () {
+        document.getElementById('orderForm').submit();
+      }
+    });
+  }
+  </script>
+
+</body>
+</html>
